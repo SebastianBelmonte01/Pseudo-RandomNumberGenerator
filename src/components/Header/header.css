@@ -1,0 +1,22 @@
+.header{
+    background-color: #284B63;
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+    padding: 2%;
+}
+.tool-bar{
+    background-color: #EEF0EB;
+    
+    display: flex;
+    padding: 1.5%;
+}
+.tool-bar a{
+    margin-left: 48px;
+    font-size: 30px;
+    color: #B4B8AB;
+}
+
+.tool-bar a:hover{
+    color: #1E96FC;
+}

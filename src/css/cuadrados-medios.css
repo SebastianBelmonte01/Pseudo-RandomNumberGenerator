@@ -1,0 +1,6 @@
+.input-container{
+    margin: 2% 0px 0px 2%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 10%;
+}

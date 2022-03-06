@@ -49,10 +49,8 @@ const renderTable = (semilla, limite, k) => {
 
     for(let i = 1; i <= parseInt(limite); i++){
         x[i] = ((x[i-1] * a) + c) % m;
-    }
-
-    for(let i = 1; i < x.length; i++){
         console.log("x ",x[i]);
+
     }
 }
 
@@ -70,7 +68,6 @@ const AlgoritmoLineal = () => {
            <Button text="Enviar" onClick={()=> renderTable(semilla, limite, k)}/>
         </div>
         <Table />
-
         <Footer />
     </div>
   )

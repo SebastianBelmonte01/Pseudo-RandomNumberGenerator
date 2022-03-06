@@ -16,6 +16,7 @@ let y = [''];
 const renderTable = (semilla0, semilla1, limite) => {
   if(semilla0.length !== semilla1.length){
     alert('Las semillas deben poseer la misma longitud');
+    document.location.reload(true);
   }
   else{
     d = parseInt(semilla0.length);

@@ -62,7 +62,7 @@ let y = [''];
 const renderTable = (semilla, limite) => {
     d = parseInt(semilla.length);
     x[0] = semilla;
-    for(let i = 1; i <= limite; i++){
+    for(let i = 1; i <= parseInt(limite); i++){
         y[i] = Math.pow(parseInt(x[i-1]),2) + "";
         // console.log('d',d,'y[i]',y[i]);
         // console.log((y[i]-d) % 2);
@@ -137,7 +137,7 @@ const CuadradosMedios = () => {
              <div className="input-container">
                 <Input  onChange={event => {setSemilla(event.target.value)}} message="Ingrese la semilla"/>
                 <Input onChange={event => setLimite(event.target.value)}message="Ingrese el límite"/>
-                <Button onClick={() => renderTable(semilla,limite)} text={"Button"}/>
+                <Button onClick={() => renderTable(semilla,limite)} text={"Enviar"}/>
              </div>
              <Table/>        
              <Footer/>

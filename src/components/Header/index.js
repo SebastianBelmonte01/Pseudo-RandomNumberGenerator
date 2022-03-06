@@ -11,7 +11,7 @@ const Header = ({pos}) => {
             <div className="tool-bar">
                 
                 <a href="./CuadradosMedios" id={pos === '1' ? "activo":''}>Cuadrados Medios</a>
-                <a id={pos === '2' ? "activo":''}>Productos Medios</a>
+                <a href="./ProductoMedios" id={pos === '2' ? "activo":''}>Productos Medios</a>
                 <a id={pos === '3' ? "activo":''}>Algoritmo Lineal</a>
                 <a id={pos === '4' ? "activo":''}>Algoritmo Multiplicativo</a>
 

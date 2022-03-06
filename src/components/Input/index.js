@@ -1,12 +1,12 @@
 import React from "react";
 import './input.css';
 
-const Input = (props) => {
+const Input = ({message,onChange}) => {
     return(
         <div>
             <div className="container">
-                <label htmlFor="input">{props.message}</label>
-                <input type="text" placeholder={props.message} className="input"/>
+                <label htmlFor="input">{message}</label>
+                <input type="text" placeholder={message} onChange={onChange}className="input"/>
             </div>
             
         </div>

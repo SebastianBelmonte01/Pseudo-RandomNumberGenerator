@@ -68,7 +68,7 @@ const ProductoMedios = () => {
   return (
     <div>
         <Header pos='2'/>
-        <div className="input-container">
+        <div className="input-container1">
           <Input onChange={event => setSemilla0(event.target.value)} message={'Ingrese la semilla x0'}/>
           <Input onChange={event => setSemilla1(event.target.value)} message={'Ingrese la semilla x1'}/>
           <Input onChange={event => setLimite(event.target.value)} message={'Ingrese el limite'} />

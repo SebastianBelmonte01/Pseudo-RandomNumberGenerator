@@ -8,6 +8,7 @@ import Table from '../components/Table';
 let x = [];
 
 const renderTable = (semilla, limite, k) => {
+    let columns = [];
     if(parseInt(semilla) % 2 === 0){
         alert('La semilla debe ser impar');
         document.location.reload(true);
@@ -23,8 +24,14 @@ const renderTable = (semilla, limite, k) => {
         let a = 3 + (8 * parseInt(k));
 
         for(let i = 1; i <= parseInt(limite); i++){
+            let row = [];
+
             x[i] = ((x[i-1] * a) ) % m;
-            console.log("x ",x[i]);
+            row[0] = i;
+            row[1] = x[i];
+            row[2] = (x[i] / (m - 1)).toFixed(4);
+
+            columns[i - 1] = row;
     
         }
     
@@ -32,6 +39,7 @@ const renderTable = (semilla, limite, k) => {
         console.log(m,"m");
         console.log(a,"a");
     }
+    return columns;
 
 }
 
@@ -40,6 +48,10 @@ const AlgoritmoMultiplicativo = () => {
     const[semilla, setSemilla] = useState('');
     const[k, setK] = useState('');
     const[limite, setLimite] = useState('');
+    const [header, setHeader] = useState([]);
+    const [body, setBody] = useState([]);
+    const titles = ['i','xi','ri'];
+ 
   return (
     <div> 
         <Header pos='4'/>
@@ -47,9 +59,9 @@ const AlgoritmoMultiplicativo = () => {
             <Input message='Ingrese la semilla' onChange={event => setSemilla(event.target.value)} />
             <Input message='Ingrese el limite' onChange={event => setLimite(event.target.value)} />
             <Input message='Ingrese el k' onChange={event=> setK(event.target.value)} />
-            <Button text="Enviar" onClick={() => renderTable(semilla, limite, k)} />
+            <Button text="Enviar" onClick={() => {setBody(renderTable(semilla, limite, k)); setHeader(titles)}} />
         </div>
-        <Table />
+        <Table headers={header} bodyTable={body}/>
 
         <Footer />
 

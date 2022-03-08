@@ -1,46 +1,31 @@
 import React from 'react';
 import './table.css';
 
-const Table = () => {
+const Table = ({headers, bodyTable}) => {
     return(
         <div className="general-container">
             <div className="table-container">
                 <table>
                     <tbody>
-                        <tr>
-                            <th>0</th>
-                            <th>1</th>
-                            <th>2</th>
-                            <th>3</th>
-                            <th>4</th>
+                       <tr>
+                            {
+                                headers.map((item,index)=><th key={item + '-' + index}>{item}</th>)
+                            }
 
                         </tr>
-                        <tr>
-                            <td>Hola</td>
-                            <td>Hola</td>
-                            <td>Hola</td>
-                            <td>Hola</td>
-                            <td>Hola</td>
-
-                        </tr>
-
+                            {
+                                bodyTable.map((row, index) => 
+                                    (
+                                        <tr key={'row-' + index}>{row.map( (column, colIndex) => <td key={'column' + '-' + colIndex}>{column}</td>)}</tr>
+                                    ))
+                            }
+ 
                     </tbody>
                 </table> 
             </div>
         </div>
 
     );
-        {/* <table>
-            <tr>
-                <th>0</th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-
-            </tr>
-        </table> */}
-
 }
 
 export default Table;

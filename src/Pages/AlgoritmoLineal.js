@@ -7,26 +7,14 @@ import Button from '../components/Button';
 import Table from '../components/Table';
 
 
-let x = [];
 
 
 
- const primoCercano = (m) => {
-    for(let i = m + 1; true; i++) {
-        let c = 0;
-        for(let j = 1; j <= i; j++) {
-            if(i % j === 0){  
-                c++;
-            }
 
-        }
-        if(c === 2){
-            return parseInt(i);
-        }
-    }
-}
 
 const renderTable = (semilla, limite, k) => {
+    const columns = [];
+    let x =[];
     x[0] = semilla;
     console.log(semilla,": semilla");
     console.log(limite,": limite");
@@ -48,9 +36,31 @@ const renderTable = (semilla, limite, k) => {
     console.log(c);
 
     for(let i = 1; i <= parseInt(limite); i++){
+        let rows = [];
         x[i] = ((x[i-1] * a) + c) % m;
         console.log("x ",x[i]);
+        rows[0] = i;
+        rows[1] = x[i];
+        rows[2] = (x[i] / (m - 1)).toFixed(4);
+        console.log("rs", rows[2]);
+        columns[i-1] = rows;
+    }
 
+    return columns;
+}
+
+const primoCercano = (m) => {
+    for(let i = m + 1; true; i++) {
+        let c = 0;
+        for(let j = 1; j <= i; j++) {
+            if(i % j === 0){  
+                c++;
+            }
+
+        }
+        if(c === 2){
+            return parseInt(i);
+        }
     }
 }
 
@@ -58,6 +68,11 @@ const AlgoritmoLineal = () => {
  const [semilla, setSemilla]= useState('');
  const [limite, setLimite]= useState('');
  const [k,setK] = useState('');
+ const [body, setBody] = useState([]);
+ const [header, setHeader] = useState([]);
+ const titles = ['i','xi','ri'];
+
+
   return (
     <div>
         <Header pos={'3'} />
@@ -65,9 +80,9 @@ const AlgoritmoLineal = () => {
            <Input message="Ingrese la semilla" onChange={event => setSemilla(event.target.value)}/>
            <Input message="Ingrese el limite" onChange={event => setLimite(event.target.value)}/> 
            <Input message="Ingrese k" onChange={event =>setK(event.target.value)}/> 
-           <Button text="Enviar" onClick={()=> renderTable(semilla, limite, k)}/>
+           <Button text="Enviar" onClick={()=> {setBody(renderTable(semilla, limite, k)); setHeader(titles)}}/>
         </div>
-        <Table />
+        <Table headers={header} bodyTable={body}/>
         <Footer />
     </div>
   )

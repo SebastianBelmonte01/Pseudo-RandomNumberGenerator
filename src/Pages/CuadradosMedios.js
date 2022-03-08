@@ -6,76 +6,37 @@ import Input from '../components/Input';
 import Table from '../components/Table';
 import '../components/Table/table.css';
 import Button from '../components/Button';
-import ReactDOM from 'react-dom';
 
 
-let d = 0;
 let x = [];
 let y = [''];
-
-
-
-// const Table = () => {
-//     return(
-//         // console.log('i:', i, ' yi',y,' xi', x[i],' ri', x[i]/Math.pow(10,d));
-
-//         <div className="general-container">
-//             <div className="table-container">
-//                 <table>
-//                     <tbody>
-//                         <tr>
-//                             <th>i</th>
-//                             <th>yi</th>
-//                             <th>xi</th>
-//                             <th>ri</th>
-
-//                         </tr>
-//                         <tr>
-//                             {
-//                                 () => {
-//                                     for(let i = 1; i <= d; i++){
-//                                     <>
-//                                         <td>i</td>
-//                                         <td>y[i]</td>
-//                                         <td>x[i]</td>
-//                                         <td>{x[i]/Math.pow(10,d)}</td>   
-//                                     </>
-
-//                                     }
-                                    
-//                                 }
- 
-                                
-//                             }
-                     
-
-//                         </tr>
-
-//                     </tbody>
-//                 </table> 
-//             </div>
-//         </div>
-
-//     );
-// }
+let d = 0;
 
 const renderTable = (semilla, limite) => {
+    let rows = [];
+    
     d = parseInt(semilla.length);
     x[0] = semilla;
     for(let i = 1; i <= parseInt(limite); i++){
+        let columns = [];
         y[i] = Math.pow(parseInt(x[i-1]),2) + "";
-        // console.log('d',d,'y[i]',y[i]);
-        // console.log((y[i]-d) % 2);
         if((y[i].length-d) % 2 !== 0){
-            // console.log('Entreo');
             let cero = '0';
             cero += y[i]
             y[i] = cero;
         }
         x[i] = digitosMedios(y[i],d);
-        console.log('i:', i, ' yi',y[i],' xi', x[i],' ri', x[i]/Math.pow(10,d));
+        columns[0] = i;
+        columns[1] = y[i];
+        columns[2] = x[i];
+        columns[3] =  x[i]/Math.pow(10,d);
+        rows[i-1]= columns;
+
+       
+
     }
-    // ReactDOM.render(Table, document.getElementById('root'));
+
+
 
     if(degenerado() === -1){
         console.log('No se degenerado.');
@@ -84,9 +45,8 @@ const renderTable = (semilla, limite) => {
         console.log('Si degenerado en ' + degenerado());
 
     }
-    
 
-
+    return rows;
 
 }
 
@@ -103,14 +63,6 @@ const degenerado = () => {
 
 }
 
-const buscarPorPosicion = (num) => {
-    for(let i = 0; i < x.length; i++) {
-        if(num === x[i]){
-            console.log(i);
-            return i;
-        }
-    }
-}
 
 const digitosMedios = (y,d) => {
     console.log('y: ', y);
@@ -131,15 +83,21 @@ const digitosMedios = (y,d) => {
 const CuadradosMedios = () => {
     const [semilla, setSemilla] = useState(''); 
     const [limite, setLimite] = useState('');
+    const [body, setBody] = useState([]);
+    const [headers, setHeaders] = useState([]);
+    const titles = ['i','yi','xi','ri'];
+
+
+
     return(
         <div>
              <Header pos="1"/>
              <div className="input-container">
                 <Input  onChange={event => {setSemilla(event.target.value)}} message="Ingrese la semilla"/>
                 <Input onChange={event => setLimite(event.target.value)}message="Ingrese el límite"/>
-                <Button onClick={() => renderTable(semilla,limite)} text={"Enviar"}/>
+                <Button onClick={() => {(setBody(renderTable(semilla,limite))); setHeaders(titles)}} text={"Enviar"}/>
              </div>
-             <Table/>        
+             <Table headers={headers} bodyTable={body} /> 
              <Footer/>
         </div>
     );

@@ -14,6 +14,8 @@ let x = [];
 let y = [''];
 
 const renderTable = (semilla0, semilla1, limite) => {
+  let rows = [];
+  
   if(semilla0.length !== semilla1.length){
     alert('Las semillas deben poseer la misma longitud');
     
@@ -25,6 +27,7 @@ const renderTable = (semilla0, semilla1, limite) => {
     x[1] = parseInt(semilla1);
 
     for(let i = 1; i <= parseInt(limite); i++){
+      let columns = [];
       y[i] = x[i] * x[i - 1] + "";
       console.log(y[i]);  
       if((y[i].length-d) % 2 !== 0){
@@ -33,7 +36,12 @@ const renderTable = (semilla0, semilla1, limite) => {
         y[i] = cero;
       }
       x[i+1] = digitosMedios(y[i],d);
-      console.log('i:', i, ' yi',y[i],' xi', x[i+1],' ri', x[i+1]/Math.pow(10,d));
+      columns[0] = i;
+      columns[1] = y[i];
+      columns[2] = x[i+1]; 
+      columns[3] = x[i+1]/Math.pow(10,d);
+      rows[i-1]= columns;
+
     
     } 
 
@@ -41,6 +49,7 @@ const renderTable = (semilla0, semilla1, limite) => {
 
   }
 
+  return rows;
 
 }
 
@@ -67,6 +76,10 @@ const ProductoMedios = () => {
   const [semilla0, setSemilla0] = useState('');
   const [semilla1, setSemilla1] = useState('');
   const [limite, setLimite] = useState('');
+  const [headers, setHeaders] = useState([]);
+  const [body, setBody] = useState([]);
+  const titles = ['i','yi','xi','ri'];
+
   return (
     <div>
         <Header pos='2'/>
@@ -74,10 +87,9 @@ const ProductoMedios = () => {
           <Input onChange={event => setSemilla0(event.target.value)} message={'Ingrese la semilla x0'}/>
           <Input onChange={event => setSemilla1(event.target.value)} message={'Ingrese la semilla x1'}/>
           <Input onChange={event => setLimite(event.target.value)} message={'Ingrese el limite'} />
-          <Button onClick={() => {renderTable(semilla0, semilla1, limite)}} text={"Enviar"} />
+          <Button onClick={() => {setBody(renderTable(semilla0, semilla1, limite)); setHeaders(titles)}} text={"Enviar"} />
         </div>
-        <Table />
-        
+        <Table headers={headers} bodyTable={body} /> 
         <Footer />
     </div>
   )

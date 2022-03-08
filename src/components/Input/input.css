@@ -15,4 +15,11 @@ input {
     display: inline-block;
 }
 
+@media (max-width: 768px){
+    label {
+        width: 40%;
+        font-size: 10px;
+    }
+}
+
 

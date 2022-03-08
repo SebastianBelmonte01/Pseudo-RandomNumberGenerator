@@ -4,8 +4,8 @@ import Footer from '../components/Footer'
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Table from '../components/Table';
-
 import '../css/producto-medio.css';
+import Message from '../components/Message';
 
 
 
@@ -53,6 +53,17 @@ const renderTable = (semilla0, semilla1, limite) => {
 
 }
 
+const repetitionSearch = () => {
+  for(let i = 0; i < x.length; i++) {
+      for(let j = i + 1; j < x.length; j++) {
+          if(x[i] === x[j]){
+              console.log('DEgenea', x[i]);
+              return "Existe degeneración en i=" + i + ", xi=" + x[x.indexOf(x[i])];
+          }
+      }
+  }
+}
+
 
 
 const digitosMedios = (y,d) => {
@@ -79,6 +90,7 @@ const ProductoMedios = () => {
   const [headers, setHeaders] = useState([]);
   const [body, setBody] = useState([]);
   const titles = ['i','yi','xi','ri'];
+  const [message, setMessage] = useState('');
 
   return (
     <div>
@@ -87,7 +99,8 @@ const ProductoMedios = () => {
           <Input onChange={event => setSemilla0(event.target.value)} message={'Ingrese la semilla x0'}/>
           <Input onChange={event => setSemilla1(event.target.value)} message={'Ingrese la semilla x1'}/>
           <Input onChange={event => setLimite(event.target.value)} message={'Ingrese el limite'} />
-          <Button onClick={() => {setBody(renderTable(semilla0, semilla1, limite)); setHeaders(titles)}} text={"Enviar"} />
+          <Button onClick={() => {setBody(renderTable(semilla0, semilla1, limite)); setHeaders(titles); setMessage(repetitionSearch())}} text={"Enviar"} />
+          <Message message={message} />
         </div>
         <Table headers={headers} bodyTable={body} /> 
         <Footer />

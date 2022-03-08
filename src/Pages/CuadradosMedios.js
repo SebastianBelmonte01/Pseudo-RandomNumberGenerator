@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import Table from '../components/Table';
 import '../components/Table/table.css';
 import Button from '../components/Button';
+import Message from '../components/Message';
 
 
 let x = [];
@@ -38,30 +39,11 @@ const renderTable = (semilla, limite) => {
 
 
 
-    if(degenerado() === -1){
-        console.log('No se degenerado.');
-    }
-    else{
-        console.log('Si degenerado en ' + degenerado());
-
-    }
 
     return rows;
 
 }
 
-const degenerado = () => {
-    for(let i = 0; i < x.length; i++) {
-        for(let j = i + 1; j < x.length; j++) {
-            if(x[i] === x[j]){
-                console.log('DEgenea', x[i]);
-                return i;
-            }
-        }
-    }
-    return -1;
-
-}
 
 
 const digitosMedios = (y,d) => {
@@ -78,6 +60,17 @@ const digitosMedios = (y,d) => {
     return parseInt(medios);
 }
 
+const repetitionSearch = () => {
+    for(let i = 0; i < x.length; i++) {
+        for(let j = i + 1; j < x.length; j++) {
+            if(x[i] === x[j]){
+                console.log('DEgenea', x[i]);
+                return "Existe degeneración en i=" + i + ", xi=" + x[x.indexOf(x[i])];
+            }
+        }
+    }
+}
+
 
 
 const CuadradosMedios = () => {
@@ -86,6 +79,7 @@ const CuadradosMedios = () => {
     const [body, setBody] = useState([]);
     const [headers, setHeaders] = useState([]);
     const titles = ['i','yi','xi','ri'];
+    const [message, setMessage] = useState('');
 
 
 
@@ -95,7 +89,8 @@ const CuadradosMedios = () => {
              <div className="input-container">
                 <Input  onChange={event => {setSemilla(event.target.value)}} message="Ingrese la semilla"/>
                 <Input onChange={event => setLimite(event.target.value)}message="Ingrese el límite"/>
-                <Button onClick={() => {(setBody(renderTable(semilla,limite))); setHeaders(titles)}} text={"Enviar"}/>
+                <Button onClick={() => {(setBody(renderTable(semilla,limite))); setHeaders(titles); setMessage(repetitionSearch())}} text={"Enviar"}/>
+                <Message message={message} />
              </div>
              <Table headers={headers} bodyTable={body} /> 
              <Footer/>

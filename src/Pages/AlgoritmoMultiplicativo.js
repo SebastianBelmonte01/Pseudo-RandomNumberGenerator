@@ -4,8 +4,10 @@ import Footer from '../components/Footer';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Table from '../components/Table';
+import Message from '../components/Message';
 
 let x = [];
+let components = [];
 
 const renderTable = (semilla, limite, k) => {
     let columns = [];
@@ -38,9 +40,18 @@ const renderTable = (semilla, limite, k) => {
         console.log(g,"g");
         console.log(m,"m");
         console.log(a,"a");
+
+        
+        components[0] = "g="+ g+"\n";
+        components[1] = "m="+ m+"\n";
+        components[2] = "a="+ a+"\n";
     }
     return columns;
 
+}
+
+const sendInformation = () => {
+    return components;
 }
 
 
@@ -51,6 +62,7 @@ const AlgoritmoMultiplicativo = () => {
     const [header, setHeader] = useState([]);
     const [body, setBody] = useState([]);
     const titles = ['i','xi','ri'];
+    const [information, setInformation] = useState('');
  
   return (
     <div> 
@@ -59,7 +71,8 @@ const AlgoritmoMultiplicativo = () => {
             <Input message='Ingrese la semilla' onChange={event => setSemilla(event.target.value)} />
             <Input message='Ingrese el limite' onChange={event => setLimite(event.target.value)} />
             <Input message='Ingrese el k' onChange={event=> setK(event.target.value)} />
-            <Button text="Enviar" onClick={() => {setBody(renderTable(semilla, limite, k)); setHeader(titles)}} />
+            <Button text="Enviar" onClick={() => {setBody(renderTable(semilla, limite, k)); setHeader(titles); setInformation(sendInformation())}} />
+            <Message message={information} />
         </div>
         <Table headers={header} bodyTable={body}/>
 

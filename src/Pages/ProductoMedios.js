@@ -22,6 +22,7 @@ const renderTable = (semilla0, semilla1, limite) => {
     document.location.reload(true);
   }
   else{
+    x = [];
     d = parseInt(semilla0.length);
     x[0] = parseInt(semilla0);
     x[1] = parseInt(semilla1);
@@ -36,7 +37,7 @@ const renderTable = (semilla0, semilla1, limite) => {
         y[i] = cero;
       }
       x[i+1] = digitosMedios(y[i],d);
-      columns[0] = i;
+      columns[0] = i + 1;
       columns[1] = y[i];
       columns[2] = x[i+1]; 
       columns[3] = x[i+1]/Math.pow(10,d);
@@ -54,10 +55,9 @@ const renderTable = (semilla0, semilla1, limite) => {
 }
 
 const repetitionSearch = () => {
-  for(let i = 0; i < x.length; i++) {
+  for(let i = 2; i < x.length; i++) {
       for(let j = i + 1; j < x.length; j++) {
           if(x[i] === x[j]){
-              console.log('DEgenea', x[i]);
               return "Existe degeneración en i=" + i + ", xi=" + x[x.indexOf(x[i])];
           }
       }
